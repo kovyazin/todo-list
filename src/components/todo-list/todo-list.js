@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import TodoListItem from '../todo-list-item/todo-list-item'
 import TodoListFooter from '../todo-list-footer/todo-list-footer'
 
-const TodoList = ({ todos, toggleItemCompleted }) => {
+const TodoList = ({ todos, toggleItemCompleted, deleteItem }) => {
   return (
     <ul className="list-group">
       {todos.map(({ id, label, completed }) => {
@@ -15,6 +15,7 @@ const TodoList = ({ todos, toggleItemCompleted }) => {
             completed={completed}
             id={id}
             handleToggle={toggleItemCompleted}
+            handleDelete={deleteItem}
           />
         )
       })}
@@ -25,7 +26,8 @@ const TodoList = ({ todos, toggleItemCompleted }) => {
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  toggleItemCompleted: PropTypes.func.isRequired
+  toggleItemCompleted: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired
 }
 
 export default TodoList

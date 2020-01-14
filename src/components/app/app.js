@@ -22,6 +22,10 @@ const App = () => {
     )
   }
 
+  const deleteItem = id => {
+    setTodos(todos.filter(item => item.id !== id))
+  }
+
   return (
     <div className="pt-5">
       <div className="container">
@@ -30,7 +34,11 @@ const App = () => {
           <Search />
         </div>
         <div className="mb-3">
-          <TodoList todos={todos} toggleItemCompleted={toggleItemCompleted} />
+          <TodoList
+            todos={todos}
+            toggleItemCompleted={toggleItemCompleted}
+            deleteItem={deleteItem}
+          />
         </div>
         <FilterBar />
       </div>
