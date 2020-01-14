@@ -26,12 +26,16 @@ const App = () => {
     setTodos(todos.filter(item => item.id !== id))
   }
 
+  const addItem = label => {
+    setTodos([...todos, { id: Date.now(), completed: false, label }])
+  }
+
   return (
     <div className="pt-5">
       <div className="container">
         <h1 className="font-weight-bold mb-3">Todo List</h1>
         <div className="mb-3">
-          <Search />
+          <Search addItem={addItem} />
         </div>
         <div className="mb-3">
           <TodoList
