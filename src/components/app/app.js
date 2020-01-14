@@ -13,6 +13,7 @@ const todoData = [
 
 const App = () => {
   const [todos, setTodos] = useState(todoData)
+  const [filter, setFilter] = useState('all')
 
   const toggleItemCompleted = id => {
     setTodos(
@@ -27,12 +28,27 @@ const App = () => {
   }
 
   const deleteCompletedItems = () => {
-    setTodos(todos.filter(item => item.completed === false))
+    setTodos(todos.filter(item => !item.completed))
   }
 
   const addItem = label => {
     setTodos([...todos, { id: Date.now(), completed: false, label }])
   }
+
+  const filterItems = (items, filter) => {
+    switch (filter) {
+      case 'all':
+        return items
+      case 'active':
+        return items.filter(item => !item.completed)
+      case 'completed':
+        return items.filter(item => item.completed)
+      default:
+        return items
+    }
+  }
+
+  const visibleItems = filterItems(todos, filter)
 
   return (
     <div className="pt-5">
@@ -43,12 +59,16 @@ const App = () => {
         </div>
         <div className="mb-3">
           <TodoList
-            todos={todos}
+            todos={visibleItems}
             toggleItemCompleted={toggleItemCompleted}
             deleteItem={deleteItem}
           />
         </div>
-        <FilterBar deleteCompletedItems={deleteCompletedItems} />
+        <FilterBar
+          deleteCompletedItems={deleteCompletedItems}
+          handleFilter={setFilter}
+          filter={filter}
+        />
       </div>
     </div>
   )
