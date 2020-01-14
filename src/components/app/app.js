@@ -14,6 +14,7 @@ const todoData = [
 const App = () => {
   const [todos, setTodos] = useState(todoData)
   const [filter, setFilter] = useState('all')
+  const isCompletedAllItems = todos.every(({ completed }) => completed)
 
   const toggleItemCompleted = id => {
     setTodos(
@@ -21,6 +22,10 @@ const App = () => {
         item.id !== id ? item : { ...item, completed: !item.completed }
       )
     )
+  }
+
+  const toggleAllItemsCompleted = () => {
+    setTodos(todos.map(item => ({ ...item, completed: !isCompletedAllItems })))
   }
 
   const deleteItem = id => {
@@ -62,6 +67,8 @@ const App = () => {
             todos={visibleItems}
             toggleItemCompleted={toggleItemCompleted}
             deleteItem={deleteItem}
+            isCompletedAllItems={isCompletedAllItems}
+            toggleAllItemsCompleted={toggleAllItemsCompleted}
           />
         </div>
         <FilterBar
