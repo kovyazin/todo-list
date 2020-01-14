@@ -16,8 +16,9 @@ const TodoListFooter = ({
           type="checkbox"
           checked={isCompletedAllItems}
           onChange={toggleAllItemsCompleted}
+          className="mr-2"
         />
-        &nbsp;Check All
+        Check All
       </label>
       <span>{uncompletedItemsLength} items left</span>
     </li>

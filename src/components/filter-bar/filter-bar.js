@@ -16,6 +16,7 @@ const FilterBar = ({ deleteCompletedItems, handleFilter, filter }) => {
           return (
             <button
               type="button"
+              key={name}
               className={`btn ${clazz}`}
               onClick={() => handleFilter(name)}
             >

@@ -6,13 +6,14 @@ import './todo-list-item.scss'
 const TodoListItem = ({ label, completed, id, handleToggle, handleDelete }) => {
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
-      <label className="mb-0">
+      <label className="flex-grow-1 mb-0 mr-5 text-truncate">
         <input
           type="checkbox"
           checked={completed}
           onChange={() => handleToggle(id)}
+          className="mr-2"
         />
-        &nbsp;<span className={completed ? 'item-completed' : ''}>{label}</span>
+        <span className={completed ? 'item-completed' : ''}>{label}</span>
       </label>
       <button
         type="button"
