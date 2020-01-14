@@ -26,6 +26,10 @@ const App = () => {
     setTodos(todos.filter(item => item.id !== id))
   }
 
+  const deleteCompletedItems = () => {
+    setTodos(todos.filter(item => item.completed === false))
+  }
+
   const addItem = label => {
     setTodos([...todos, { id: Date.now(), completed: false, label }])
   }
@@ -44,7 +48,7 @@ const App = () => {
             deleteItem={deleteItem}
           />
         </div>
-        <FilterBar />
+        <FilterBar deleteCompletedItems={deleteCompletedItems} />
       </div>
     </div>
   )
