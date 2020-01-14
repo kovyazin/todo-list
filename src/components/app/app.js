@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 import Search from '../search/search'
 import TodoList from '../todo-list/todo-list'
@@ -62,23 +63,68 @@ const App = () => {
         <div className="mb-3">
           <Search addItem={addItem} />
         </div>
-        <div className="mb-3">
-          <TodoList
+        {!!todos.length && (
+          <TodoBody
             todos={visibleItems}
             toggleItemCompleted={toggleItemCompleted}
             deleteItem={deleteItem}
             isCompletedAllItems={isCompletedAllItems}
             toggleAllItemsCompleted={toggleAllItemsCompleted}
+            deleteCompletedItems={deleteCompletedItems}
+            handleFilter={setFilter}
+            filter={filter}
           />
-        </div>
-        <FilterBar
-          deleteCompletedItems={deleteCompletedItems}
-          handleFilter={setFilter}
-          filter={filter}
-        />
+        )}
+        {!todos.length && (
+          <h2 className="text-center mt-5">
+            Todo list is still empty. <br />
+            Please, add your first todo item.
+          </h2>
+        )}
       </div>
     </div>
   )
+}
+
+const TodoBody = ({
+  todos,
+  toggleItemCompleted,
+  deleteItem,
+  isCompletedAllItems,
+  toggleAllItemsCompleted,
+  deleteCompletedItems,
+  handleFilter,
+  filter
+}) => {
+  return (
+    <>
+      <div className="mb-3">
+        <TodoList
+          todos={todos}
+          toggleItemCompleted={toggleItemCompleted}
+          deleteItem={deleteItem}
+          isCompletedAllItems={isCompletedAllItems}
+          toggleAllItemsCompleted={toggleAllItemsCompleted}
+        />
+      </div>
+      <FilterBar
+        deleteCompletedItems={deleteCompletedItems}
+        handleFilter={handleFilter}
+        filter={filter}
+      />
+    </>
+  )
+}
+
+TodoBody.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  toggleItemCompleted: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+  isCompletedAllItems: PropTypes.bool.isRequired,
+  toggleAllItemsCompleted: PropTypes.func.isRequired,
+  deleteCompletedItems: PropTypes.func.isRequired,
+  handleFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired
 }
 
 export default App
